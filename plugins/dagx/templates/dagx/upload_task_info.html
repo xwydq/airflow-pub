@@ -1,0 +1,30 @@
+
+<div id="upload-task-info" class="info task-info">
+    <span type="text" name="type" style="display:none;">upload</span>
+    <div class="info-row">
+        <span class="property">任务名称：</span>
+        <input type="text" class="form-control" name="name">
+    </div>
+    {% include "dagx/upstreams.html" %}
+    <div class="info-row">
+        <span class="property">文件：</span>
+        <select type="select" name="file">
+            {% for f in files %}
+            <option value="{{ f['path'] }}">{{ f['name'] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="info-row">
+        <span class="property">目标（数据库/表）：</span>
+        <div class="row">
+            <select type="select" name="conn_id" style="width: 58%; display: inline;">
+                {% for c in connections %}
+                <option value="{{ c['conn_id'] }}">{{ c['conn_id'] }}</option>
+                {% endfor %}
+            </select>
+            <input type="text" placeholder="输入表名" class="form-control" name="table" style="width: 40%; display: inline; margin-left: 15px;">
+        </div>
+    </div>
+    {% include "dagx/info_actions.html" %}
+</div>
+

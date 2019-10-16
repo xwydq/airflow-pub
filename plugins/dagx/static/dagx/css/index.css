@@ -1,0 +1,10 @@
+
+.dag-status-False {
+    font-weight: bold;
+    color: red;
+}
+
+.dag-status-True {
+    font-weight: bold;
+    color: green;
+}

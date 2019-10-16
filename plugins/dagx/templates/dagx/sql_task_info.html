@@ -1,0 +1,33 @@
+
+<div id="sql-task-info" class="info task-info">
+    <span type="text" name="type" style="display:none;">sql</span>
+    <div class="info-row">
+        <span class="property">任务名称：</span>
+        <input type="text" class="form-control" name="name">
+    </div>
+    {% include "dagx/upstreams.html" %}
+    <div class="info-row">
+        <span class="property">数据源：</span>
+        <select type="select" name="conn_id">
+            {% for c in connections %}
+            <option value="{{ c['conn_id'] }}">{{ c['conn_id'] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="info-row">
+        <span class="property">任务代码：</span>
+        <pre type="editor" id="sql-editor" class="ace_editor" name="sql">
+            <textarea class="ace_text-input"></textarea>
+        </pre>
+    </div>
+    {% include "dagx/info_actions.html" %}
+    <script>
+        var editor = ace.edit("sql-editor");
+        editor.setTheme("ace/theme/sqlserver");
+        editor.session.setMode("ace/mode/mysql");
+        editor.setFontSize(18);
+        editor.setReadOnly(false);
+        editor.setOption("wrap", "free");
+    </script>
+</div>
+

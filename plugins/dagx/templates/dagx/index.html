@@ -1,0 +1,64 @@
+{% extends "airflow/master.html" %}
+{% import 'admin/lib.html' as lib with context %}
+
+{% block title %}DAGX - Airflow dag extension{% endblock %}
+
+{% block head %}
+{{ super() }}
+{{ lib.form_css() }}
+<link href="{{ url_for('dagx_bp.static', filename='dagx/css/index.css') }}" rel="stylesheet", type="text/css">
+{% endblock head %}
+
+{% block body %}
+
+<ul class="nav nav-tabs actions-nav">
+    <li class="active">
+        <a href="javascript:void(0)">主页</a>
+    </li>
+    <li>
+        <a href="edit_dag">新建 +</a>
+    </li>
+</ul>
+
+<div class="clearfix"></div>
+
+<table class="table table-striped table-bordered table-hover model-list">
+    <thead>
+        <tr>
+            <th class="column-header">名称</th>
+            <th class="column-header">创建者</th>
+            <th class="column-header">调度时间</th>
+            <th class="column-header">开始时间</th>
+            <th class="column-header">结束时间</th>
+            <th class="column-header">扫描时间</th>
+            <th class="column-header">扫描状态</th>
+            <th class="column-header">扫描详情</th>
+            <th class="col-md-1">操作</th>
+        </tr>
+    </thead>
+    {% for dag in dags %}
+    <tr>
+        <td><a href="edit_dag?uuid={{ dag['uuid'] }}">{{ dag['name'] }}</a></td>
+        <td>{{ dag['owner'] }}</td>
+        <td>{{ dag['crond'] }}</td>
+        <td>{{ dag['start_date'] }}</td>
+        <td>{{ dag['end_date'] }}</td>
+        <td>{{ dag.get('scan_time', '') }}</td>
+        <td class="dag-status-{{dag.get('status', 0)}}">{{ dag.get('status_name', '') }}</td>
+        <td>{{ dag.get('desc', '') }}</td>
+        <td class="list-buttons-column">
+            <a class="icon link-tooltip" href="edit_dag?uuid={{ dag['uuid'] }}" title="编辑">
+              <span class="fa fa-pencil glyphicon glyphicon-pencil" data-original-title="" title=""></span>
+            </a>
+            <form class="icon" action="javascript:void(0)">
+                <a class="delete-btn link-tooltip" href="delete_dag?uuid={{ dag['uuid'] }}" title="删除">
+                    <span class="fa fa-trash glyphicon glyphicon-trash"></span>
+                </a>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock body %}
+

@@ -1,0 +1,51 @@
+
+<div id="dag-info" class="info dag-info">
+    <div class="info-row">
+        <span class="property">任务流名称：</span>
+        <input type="text" class="form-control" name="name">
+    </div>
+    <div class="info-row">
+        <span class="property">调度时间：</span>
+        <input type="text" class="form-control" name="crond">
+    </div>
+    <div class="info-row">
+        <span class="property">开始时间：</span>
+        <input type="text" class="form-control" name="start_date">
+    </div>
+    <div class="info-row">
+        <span class="property">结束时间：</span>
+        <input type="text" class="form-control" name="end_date">
+    </div>
+    {% include "dagx/info_actions.html" %}
+    <script>
+        $('input[name="start_date"]').daterangepicker({
+            autoApply: true, 
+            singleDatePicker: true,
+            showDropdowns: true,
+            timePicker: true,
+            timePicker24Hour: true,
+            timePickerSeconds: true,
+            showWeekNumbers: true,
+            locale: {
+                format: 'YYYY-MM-DD HH:mm:ss',
+                applyLabel: '确定',
+                cancelLabel: '取消'
+            }
+        });
+        $('input[name="end_date"]').daterangepicker({
+            autoApply: true, 
+            singleDatePicker: true,
+            showDropdowns: true,
+            timePicker: true,
+            timePicker24Hour: true,
+            timePickerSeconds: true,
+            showWeekNumbers: true,
+            locale: {
+                format: 'YYYY-MM-DD HH:mm:ss',
+                applyLabel: '确定',
+                cancelLabel: '取消'
+            }
+        });
+    </script>
+</div>
+

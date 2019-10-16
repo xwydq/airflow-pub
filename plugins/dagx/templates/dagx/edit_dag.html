@@ -1,0 +1,59 @@
+
+{% extends "airflow/master.html" %}
+{% import 'admin/lib.html' as lib with context %}
+
+{% block title %}
+DAGX - Airflow dag extension
+{% endblock title %}
+
+{% block head %}
+{{ super() }}
+{{ lib.form_css() }}
+<script src="{{ url_for('dagx_bp.static', filename='dagx/js/jquery.min.js') }}"></script>
+<script src="{{ url_for('dagx_bp.static', filename='dagx/js/moment.min.js') }}"></script>
+<script src="{{ url_for('dagx_bp.static', filename='dagx/js/daterangepicker.js') }}"></script>
+<script src="{{ url_for('dagx_bp.static', filename='dagx/js/d3.v4.min.js') }}"></script>
+<script src="{{ url_for('dagx_bp.static', filename='dagx/js/dagre-d3.js') }}"></script>
+<script src="{{ url_for('dagx_bp.static', filename='dagx/js/src-noconflict/ace.js') }}"></script>
+
+<link href="{{ url_for('dagx_bp.static', filename='dagx/css/daterangepicker.css') }}" rel="stylesheet", type="text/css">
+<link href="{{ url_for('dagx_bp.static', filename='dagx/css/edit_dag.css') }}" rel="stylesheet", type="text/css">
+{% endblock head %}
+
+{% block body %}
+<ul class="nav nav-tabs actions-nav">
+    <li>
+        <a href="index">主页</a>
+    </li>
+    <li class="active">
+        <a href="javascript:void(0)">编辑</a>
+    </li>
+</ul>
+
+<div class="editor-container">
+    <div class="dag-container">
+        <svg><g/></svg>
+        {% include "dagx/task_menu.html" %}
+        {% include "dagx/dag_menu.html" %}
+    </div>
+
+    <div class="info-container">
+        {% include "dagx/dag_info.html" %}
+        {% include "dagx/bash_task_info.html" %}
+        {% include "dagx/python_task_info.html" %}
+        {% include "dagx/sql_task_info.html" %}
+        {% include "dagx/upload_task_info.html" %}
+        {% include "dagx/copy_task_info.html" %}
+    </div>
+</div>
+
+<script language="javascript">
+    window.gDag = {{ dag|tojson }};
+    window.gTasks = gDag.conf.tasks;
+    window.gRef = null;
+    window.gGraph = null; 
+</script>
+
+<script src="{{ url_for('dagx_bp.static', filename='dagx/js/edit_dag.js') }}"></script>
+{% endblock body %}
+

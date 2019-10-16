@@ -1,0 +1,44 @@
+
+<div id="copy-task-info" class="info task-info">
+    <span type="text" name="type" style="display:none;">copy</span>
+    <div class="info-row">
+        <span class="property">任务名称：</span>
+        <input type="text" class="form-control" name="name">
+    </div>
+    {% include "dagx/upstreams.html" %}
+    <div class="info-row">
+        <span class="property">数据源：</span>
+        <select type="select" name="src_conn_id">
+            {% for c in connections %}
+            <option value="{{ c['conn_id'] }}">{{ c['conn_id'] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="info-row">
+        <span class="property">SQL语句：</span>
+        <pre type="editor" id="sql-editor2" class="ace_editor" name="src_sql">
+            <textarea class="ace_text-input"></textarea>
+        </pre>
+    </div>
+    <script>
+        var editor = ace.edit("sql-editor2");
+        editor.setTheme("ace/theme/sqlserver");
+        editor.session.setMode("ace/mode/mysql");
+        editor.setFontSize(18);
+        editor.setReadOnly(false);
+        editor.setOption("wrap", "free");
+    </script>
+    <div class="info-row">
+        <span class="property">目标（数据库/表）：</span>
+        <div class="row">
+            <select type="select" name="dst_conn_id" style="width: 58%; display: inline;">
+                {% for c in connections %}
+                <option value="{{ c['conn_id'] }}">{{ c['conn_id'] }}</option>
+                {% endfor %}
+            </select>
+            <input type="text" placeholder="输入表名" class="form-control" name="dst_table" style="width: 40%; display: inline; margin-left: 15px;">
+        </div>
+    </div>
+    {% include "dagx/info_actions.html" %}
+</div>
+

@@ -1,0 +1,230 @@
+
+pre {
+    min-height: 600px;
+    width: 100%;
+}
+
+.dag_node {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.dag_node .name {
+    display: block;
+}
+
+.dag_node .type {
+    display: block;
+    color: #333;
+}
+
+.task_node {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.task_node .name {
+    display: block;
+}
+
+.task_node .type {
+    display: block;
+    color: #333;
+}
+
+g.node.enter.upstream rect{
+    stroke: green;
+}
+g.node.enter.downstream rect{
+    stroke: orange;
+}
+g.node.enter.active rect{
+    stroke: blue;
+}
+
+.editor-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    background: #FFF;
+}
+
+.dag-container {
+    width: 100%;
+    height: 1200px;
+    background: #ddd;
+}
+
+.dag-container svg {
+    width: 100%;
+    height: 1200px;
+    overflow: hidden;
+}
+
+.dag-container svg .node {
+    cursor: move;
+}
+
+.dag-container svg text {
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.dag-container svg .node rect {
+    stroke-width: 1.5px;
+    stroke: #bbb;
+    fill: #666;
+}
+
+.dag-container svg .edgeLabel text {
+    width: 50px;
+    fill: #fff;
+}
+
+.dag-container svg .edgePath path {
+    stroke: #999;
+    stroke-width: 1.5px;
+    fill: #999;
+}
+
+.dag-container svg .status {
+    height: 100%;
+    width: 15px;
+    display: block;
+    float: left;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    margin-right: 4px;
+}
+
+.rc-pop-menu {
+    display: none;
+    position: absolute;
+    z-index: 99;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    width: 100px;
+    border-bottom: 1px solid #ccc;
+    font-size: 16px;
+}
+
+.rc-pop-menu li {
+    position: relative;
+}
+
+.rc-pop-menu li ul {
+    display: none;
+    position: absolute;
+    z-index: 99;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    width: 120px;
+    border-bottom: 1px solid #ccc;
+    font-size: 16px;
+
+    left: 98px;
+    top: 0;
+}
+
+.rc-pop-menu li a {
+    width: 98px;
+    display: block;
+    text-decoration: none;
+    background: #fff;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-bottom: 0px;
+}
+
+.rc-pop-menu li ul li a {
+    width: 100%;
+}
+
+a.normal {
+    color: #666666;
+}
+
+a.run {
+    color: #34a853;
+}
+
+a.danger {
+    color: #ea4335;
+}
+
+.rc-pop-menu li a:hover {
+    background-color:#ddd;
+}
+
+.rc-pop-menu li:hover ul,li.over ul {
+    display:block;
+}
+
+.info-container {
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 2px;
+    margin-left: 3px;
+}
+
+.info-container .info {
+    display: none;
+    flex-direction: column;
+}
+
+.info .info-row {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+    thick dotted #ff0000;
+}
+
+.info-row .property {
+    font-size: 16px;
+}
+
+.info-row input {
+}
+
+.info-row .row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.info .info-actions {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.info-actions .btn_save {
+    width: 110px;
+    height: 40px;
+}
+
+.info-row select {
+    height: 40px;
+}
+
+.info-row .upstreams div {
+    width: 100%;
+}
