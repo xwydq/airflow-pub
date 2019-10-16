@@ -1,0 +1,53 @@
+# Translations template for PROJECT.
+# Copyright (C) 2019 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2019-07-23 09:50+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.7.0\n"
+
+#: www/validators.py:40 www_rbac/validators.py:40
+#, python-format
+msgid "Invalid field name '%s'."
+msgstr ""
+
+#: www/validators.py:57 www_rbac/validators.py:54
+#, python-format
+msgid "Field must be greater than or equal to %(other_label)s."
+msgstr ""
+
+#: www/templates/admin/master.html:136
+msgid "Language"
+msgstr ""
+
+#: www/templates/admin/master.html:138
+msgid "English"
+msgstr ""
+
+#: www/templates/admin/master.html:139
+msgid "Chinese"
+msgstr ""
+
+#: www_rbac/templates/appbuilder/navbar_right.html:58
+msgid "Profile"
+msgstr ""
+
+#: www_rbac/templates/appbuilder/navbar_right.html:59
+msgid "Logout"
+msgstr ""
+
+#: www_rbac/templates/appbuilder/navbar_right.html:64
+msgid "Login"
+msgstr ""
+

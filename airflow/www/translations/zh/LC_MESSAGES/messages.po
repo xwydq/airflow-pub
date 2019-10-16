@@ -1,0 +1,54 @@
+# Chinese translations for PROJECT.
+# Copyright (C) 2019 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2019-07-23 09:50+0800\n"
+"PO-Revision-Date: 2019-07-23 09:51+0800\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh\n"
+"Language-Team: zh <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.7.0\n"
+
+#: www/validators.py:40 www_rbac/validators.py:40
+#, python-format
+msgid "Invalid field name '%s'."
+msgstr ""
+
+#: www/validators.py:57 www_rbac/validators.py:54
+#, python-format
+msgid "Field must be greater than or equal to %(other_label)s."
+msgstr ""
+
+#: www/templates/admin/master.html:136
+msgid "Language"
+msgstr "语言"
+
+#: www/templates/admin/master.html:138
+msgid "English"
+msgstr "英语"
+
+#: www/templates/admin/master.html:139
+msgid "Chinese"
+msgstr "中文"
+
+#: www_rbac/templates/appbuilder/navbar_right.html:58
+msgid "Profile"
+msgstr "画像"
+
+#: www_rbac/templates/appbuilder/navbar_right.html:59
+msgid "Logout"
+msgstr "退出"
+
+#: www_rbac/templates/appbuilder/navbar_right.html:64
+msgid "Login"
+msgstr "登录"
+

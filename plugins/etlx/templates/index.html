@@ -1,0 +1,269 @@
+{% extends "airflow/master.html" %}
+{% import 'admin/lib.html' as lib with context %}
+
+{% block title %}ETL数据指标{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    {{ lib.form_css() }}
+    <style>
+        span.highlighted{
+            background: #F1C40F;
+            display: inline-block;
+            font-weight: bold;
+            padding: 0 6px;
+        }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"-->
+          <!--integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <script>
+        /**
+         * Adjust the indices of form fields when removing items.
+         */
+        function adjustIndices(removedIndex) {
+            var $forms = $('.subform');
+            $forms.each(function (i) {
+                var $form = $(this);
+                var index = parseInt($form.data('index'));
+                var newIndex = index - 1;
+                if (index < removedIndex) {
+                    // Skip
+                    return true;
+                }
+                // Change ID in form itself
+                $form.attr('id', $form.attr('id').replace(index, newIndex));
+                $form.data('index', newIndex);
+                // Change IDs in form inputs
+                $form.find('input').each(function (j) {
+                    var $item = $(this);
+                    $item.attr('id', $item.attr('id').replace(index, newIndex));
+                    $item.attr('name', $item.attr('name').replace(index, newIndex));
+                });
+            });
+        }
+
+        /**
+         * Remove a form.
+         */
+        function removeForm() {
+            var $removedForm = $(this).closest('.subform');
+            var removedIndex = parseInt($removedForm.data('index'));
+            $removedForm.remove();
+            // Update indices
+            adjustIndices(removedIndex);
+        }
+
+        /**
+         * Add a new form.
+         */
+        function addForm() {
+            var $templateForm = $('#lap-_-form');
+            if (!$templateForm) {
+                console.log('[ERROR] Cannot find template');
+                return;
+            }
+            // Get Last index
+            var $lastForm = $('.subform').last();
+            var newIndex = 0;
+            if ($lastForm.length > 0) {
+                newIndex = parseInt($lastForm.data('index')) + 1;
+            }
+            // Maximum of 20 subforms
+            if (newIndex > 20) {
+                console.log('[WARNING] Reached maximum number of elements');
+                return;
+            }
+            // Add elements
+            var $newForm = $templateForm.clone();
+            $newForm.attr('id', $newForm.attr('id').replace('_', newIndex));
+            $newForm.data('index', newIndex);
+            $newForm.find('input').each(function (idx) {
+                var $item = $(this);
+                $item.attr('id', $item.attr('id').replace('_', newIndex));
+                $item.attr('name', $item.attr('name').replace('_', newIndex));
+            });
+            // Append
+            $('#subforms-container').append($newForm);
+            $newForm.addClass('subform');
+            $newForm.removeClass('is-hidden');
+            $newForm.find('.remove').click(removeForm);
+        }
+
+        $(document).ready(function () {
+            $('#add').click(addForm);
+            $('.remove').click(removeForm);
+        });
+
+        function GetUrlParms() {
+            var args = new Object();
+            var query = location.search.substring(1);//获取查询串
+            var pairs = query.split("&");//在逗号处断开
+            for (var i = 0; i < pairs.length; i++) {
+                var pos = pairs[i].indexOf('=');//查找name=value
+                if (pos == -1) continue;//如果没有找到就跳过
+                var argname = pairs[i].substring(0, pos);//提取name
+                var value = pairs[i].substring(pos + 1);//提取value
+                args[argname] = unescape(value);//存为属性
+            }
+            return args;
+        };
+
+        function ajaxForm() {
+            var d = {};
+            var t = $('form#lap-form div.subform')
+            for (i = 0; i < t.length; i++) {
+                ti = t[i];
+                d[ti.getElementsByTagName('input')[0].value] = ti.getElementsByTagName('input')[1].value
+            }
+            dict_p = GetUrlParms();
+
+            var d = {
+                data: JSON.stringify(d),
+                para: JSON.stringify(dict_p)
+            }
+            console.log('ddddddddd');
+            console.log(d);
+
+            $.ajax({
+                url: "{{ url_for('etlxview.update') }}",
+                type: "post",
+                data: d,
+                dataType: 'json',
+                success: function (data) {
+                    console.log('success!!');
+                    var usr_name = data['info']['usr_name'];
+                    var ind_name = data['info']['ind_name'];
+                    hrefto = '/admin/etlxview/index?usr_name=%s&ind_name=%s'.format(usr_name, ind_name);
+                    window.open(hrefto);
+                },
+                error: function (e) {
+                    {#alert("error");#}
+                    {#alert(e);#}
+                }
+            })
+        }
+
+        function etlxForm() {
+            var d = {};
+            dict_p = GetUrlParms();
+
+            var d = {
+                para: JSON.stringify(dict_p)
+            }
+            console.log('ddddddddd');
+            console.log(d);
+
+            $.ajax({
+                url: "{{ url_for('etlxview.render_dag') }}",
+                type: "post",
+                data: d,
+                dataType: 'json',
+                success: function (data) {
+                    console.log('success!!');
+                    var uuid = data['info']['uuid'];
+                    hrefto = '/admin/dagxview/edit_dag?uuid=' + uuid;
+                    window.open(hrefto);
+                },
+                error: function (e) {
+                    console.log(e);
+                    // alert(e);
+                }
+            })
+        }
+
+    </script>
+
+    <style>
+        .is-hidden {
+            display: none;
+        }
+    </style>
+{% endblock %}
+
+
+{% block body %}
+<div class="row" style="margin-right: 12%; margin-left: 12%;">
+    <h2>用户：<span style="color: #8b6a10"><i>{{usr_name}}</i></span> 的指标 <span style="color: #8b6a10"><i>{{ind_name}}</i></span> 构建
+    <button id="dag-generate" style="margin-left: 500px; " class="btn btn-warning glyphicon glyphicon-hand-right">生成DAG视图</button>
+    </h2>
+    <div class="col-sm-6" style="background-color:lavender; min-height: 800px">
+        <h3>度量指标</h3>
+        <form id="metric-form" action="" method="POST" role="form1">
+            {{ form_metric.hidden_tag() }}
+
+            <div id="subforms-metric">
+                {% for subform in form_metric.fds %}
+                    <div id="metric-{{ loop.index0 }}-form" data-index="{{ loop.index0 }}">
+                        {{ subform.metric_name.label }}
+                        {{ subform.metric_name }}
+                        {{ subform.metric_label.label }}
+                        {{ subform.metric_label }}
+                    </div>
+                {% endfor %}
+            </div>
+        </form>
+    </div>
+
+    <div class="col-sm-6" style="background-color:lavenderblush; min-height: 800px">
+        <h3>维度指标</h3>
+        <a id="add" href="#"><i class="fa fa-plus-square"></i>添加维度</a>
+        {# Show all subforms #}
+        <form id="lap-form" action="" method="POST" role="form">
+            {{ form_dim.hidden_tag() }}
+            <div id="subforms-container">
+                {% for subform in form_dim.fds %}
+                    <div id="lap-{{ loop.index0 }}-form" class="subform" data-index="{{ loop.index0 }}">
+                        {{ subform.dim_name.label }}
+                        {{ subform.dim_name }}
+                        {{ subform.dim_label.label }}
+                        {{ subform.dim_label }}
+                        <a class="delete-btn link-tooltip remove" href="#" title="删除">
+                            <span class="fa fa-trash glyphicon glyphicon-trash"></span>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </form>
+
+        <div style="text-align: center; margin-top: 20px; margin-bottom: 20px; ">
+            <button id="save-dim" class="btn btn-success glyphicon glyphicon-save">保存</button>
+        </div>
+
+
+        {# Form template #}
+        <div id="lap-_-form" class="is-hidden" data-index="_">
+            <label for="laps-_-dim_name">维度指标</label>
+            <input id="laps-_-dim_name" name="laps-_-dim_name" type="text" value="">
+
+            <label for="laps-_-dim_label">指标解释</label>
+            <input id="laps-_-dim_label" name="laps-_-dim_label" type="text">
+
+            <a class="delete-btn link-tooltip remove" href="#" title="删除">
+                <span class="fa fa-trash glyphicon glyphicon-trash"></span>
+            </a>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}
+
+
+{% block tail %}
+{{ super() }}
+<script>
+    $('#save-dim').click(function () {
+        ajaxForm()
+    });
+
+    $('#dag-generate').click(function () {
+        etlxForm()
+    });
+</script>
+{% endblock %}
+

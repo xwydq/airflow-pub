@@ -1,0 +1,10 @@
+.Rproj.user
+.Rhistory
+.RData
+airflow.db
+airflow-webserver.pid
+Pipfile
+logs/
+usr/
+dagxbk/
+.idea/
