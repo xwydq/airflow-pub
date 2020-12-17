@@ -4,7 +4,7 @@ alabaster==0.7.12
 alembic==0.9.10
 amqp==2.5.0
 analytics-python==1.2.9
-apache-airflow==1.10.3
+apache-airflow==1.10.14
 asn1crypto==0.24.0
 astroid==2.2.5
 async-timeout==3.0.1
