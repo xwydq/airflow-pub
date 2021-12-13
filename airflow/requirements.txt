@@ -130,7 +130,7 @@ kubernetes==9.0.0
 lazy-object-proxy==1.4.1
 ldap3==2.6
 lockfile==0.12.2
-lxml==4.3.4
+lxml==4.6.5
 Mako==1.0.13
 Markdown==2.6.11
 MarkupSafe==1.1.1
