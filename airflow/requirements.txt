@@ -167,7 +167,7 @@ pendulum==1.4.4
 pexpect==4.7.0
 pickleshare==0.7.5
 pinotdb==0.1.1
-pipenv==2018.11.26
+pipenv==2022.1.8
 prometheus-client==0.7.1
 prompt-toolkit==2.0.9
 protobuf==3.8.0
