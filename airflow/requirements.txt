@@ -160,7 +160,7 @@ pandas==0.24.2
 pandas-gbq==0.10.0
 pandocfilters==1.4.2
 parameterized==0.7.0
-paramiko==2.6.0
+paramiko==2.10.1
 parso==0.4.0
 pbr==5.3.1
 pendulum==1.4.4
